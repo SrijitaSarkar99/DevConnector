@@ -16,13 +16,13 @@ const Login = ({ login, isAuthenticated }) => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
-    login(email, password);
+    login({ email, password });
   };
 
   if (isAuthenticated) {
-    return <Redirect to ="/dashboard" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -31,7 +31,7 @@ const Login = ({ login, isAuthenticated }) => {
       <p className="lead">
         <i className="fas fa-user"></i> Sign into Your Account
       </p>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={e => onSubmit(e)}>
 
         <div className="form-group">
           <input
@@ -39,7 +39,7 @@ const Login = ({ login, isAuthenticated }) => {
             placeholder="Email Address"
             name="email"
             value={email}
-            onChange={onChange}
+            onChange={e => onChange(e)}
             required
           />
         </div>
@@ -51,7 +51,8 @@ const Login = ({ login, isAuthenticated }) => {
             name="password"
             minLength="6"
             value={password}
-            onChange={onChange}
+            onChange={e => onChange(e)}
+            required
           />
         </div>
 
@@ -70,8 +71,8 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool
 };
 
-const mapStatetoProp = (state) => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStatetoProp, { login })(Login);
+export default connect(mapStateToProps, { login })(Login);
