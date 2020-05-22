@@ -21,6 +21,7 @@ const Login = ({ login, isAuthenticated }) => {
     login({ email, password });
   };
 
+  //Redirect if logged in
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
@@ -40,7 +41,6 @@ const Login = ({ login, isAuthenticated }) => {
             name="email"
             value={email}
             onChange={e => onChange(e)}
-            required
           />
         </div>
 
@@ -49,10 +49,8 @@ const Login = ({ login, isAuthenticated }) => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
             value={password}
             onChange={e => onChange(e)}
-            required
           />
         </div>
 
