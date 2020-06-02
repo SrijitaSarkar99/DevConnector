@@ -4,6 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
+const initialState = {
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    githubusername: '',
+    bio: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    youtube: '',
+    instagram: ''
+  };
 
 const EditProfile = ({ 
     profile: { profile, loading }, 
@@ -11,50 +25,25 @@ const EditProfile = ({
     getCurrentProfile, 
     history 
 }) => {
-    const [formData, setFormData] = useState({
-        company: '',
-        website: '',
-        location: '',
-        status: '',
-        skills: '',
-        githubusername: '',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        linkedin: '',
-        youtube: '',
-        instagram: ''
-    });
+    const [formData, setFormData] = useState(initialState);
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
     useEffect(() => {
-        getCurrentProfile();
-
-        setFormData({
-            company: loading || !profile.company ? '' : profile.company,
-            website: loading || !profile.website ? '' : profile.website,
-            location: loading || !profile.location ? '' : profile.location,
-            status: loading || !profile.status ? '' : profile.status,
-            skills: loading || !profile.skills ? '' : profile.skills.join(','),
-            githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
-            bio: loading || !profile.bio ? '' : profile.bio,
-            twitter: loading || !profile.social ? '' : profile.social.twitter,
-            facebook: loading || !profile.social ? '' : profile.social.facebook,
-            linkedin: loading || !profile.social ? '' : profile.social.linkedin,
-            youtube: loading || !profile.social ? '' : profile.social.youtube,
-            instagram: loading || !profile.social ? '' : profile.social.instagram
-        });
-    }, [getCurrentProfile, 
-        loading, 
-        profile.company, 
-        profile.website, 
-        profile.location, 
-        profile.status, 
-        profile.skills, 
-        profile.githubusername, 
-        profile.bio, 
-        profile.social]);
+        if (!profile) getCurrentProfile();
+        if (!loading && profile) {
+          const profileData = { ...initialState };
+          for (const key in profile) {
+            if (key in profileData) profileData[key] = profile[key];
+          }
+          for (const key in profile.social) {
+            if (key in profileData) profileData[key] = profile.social[key];
+          }
+          if (Array.isArray(profileData.skills))
+            profileData.skills = profileData.skills.join(', ');
+          setFormData(profileData);
+        }
+      }, [loading, getCurrentProfile, profile]);
 
     const {
         company,
@@ -77,13 +66,13 @@ const EditProfile = ({
 
     const onSubmit = e => {
         e.preventDefault();
-        createProfile( formData, history, true);
+        createProfile( formData, history, profile? true: false);
     };
 
     return (
         <Fragment>
             <h1 className="large text-primary">
-                Create Your Profile
+                Edit Your Profile
             </h1>
             <p className="lead">
                 <i className="fas fa-user"></i> 
