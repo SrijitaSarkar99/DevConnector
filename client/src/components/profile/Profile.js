@@ -46,7 +46,7 @@ const Profile = ({
                                     {profile.experience.map((experience) => (
                                         <ProfileExperience
                                             key={experience._id}
-                                            experience={experience}
+                                            experience={[experience]}
                                         />
                                     ))}
                                 </Fragment>
@@ -62,7 +62,7 @@ const Profile = ({
                                     {profile.experience.map(education => (
                                         <ProfileEducation
                                             key={education._id} 
-                                            education={education}
+                                            education={[education]}
                                         />
                                     ))}
                                 </Fragment>
