@@ -46,7 +46,7 @@ const Profile = ({
                                     {profile.experience.map((experience) => (
                                         <ProfileExperience
                                             key={experience._id}
-                                            experience={[experience]}
+                                            experience={experience}
                                         />
                                     ))}
                                 </Fragment>
@@ -59,10 +59,10 @@ const Profile = ({
                             <h2 className="text-primary">Education</h2>
                             {profile.education.length > 0 ? (
                                 <Fragment>
-                                    {profile.experience.map(education => (
+                                    {profile.education.map(education => (
                                         <ProfileEducation
                                             key={education._id} 
-                                            education={[education]}
+                                            education={education}
                                         />
                                     ))}
                                 </Fragment>
@@ -72,7 +72,7 @@ const Profile = ({
                         </div>
                         
                         {profile.githubusername && (
-                            <ProfileGithub username={profile.gtihubusername} />
+                            <ProfileGithub username={profile.githubusername} />
                         )}
                     </div>
                 </Fragment>
