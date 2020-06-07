@@ -7,7 +7,7 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-//@route  POST api/post
+//@route  POST api/posts
 //@desc   Create a post
 //@access Private
 router.post('/', [auth, [
@@ -41,7 +41,7 @@ router.post('/', [auth, [
     }
 });
 
-//@route  GET api/post
+//@route  GET api/posts
 //@desc   Get all posts
 //@access Private
 
@@ -55,7 +55,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-//@route  GET api/post/:id
+//@route  GET api/posts/:id
 //@desc   Get post by ID
 //@access Private
 
@@ -77,7 +77,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-//@route  DELETE api/post/:id
+//@route  DELETE api/posts/:id
 //@desc   Delete a posts
 //@access Private
 
@@ -104,7 +104,7 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 
-//@route  PUT api/post/like/:id
+//@route  PUT api/posts/like/:id
 //@desc   Like a posts
 //@access Private
 
@@ -129,7 +129,7 @@ router.put('/like/:id', auth, async (req, res) => {
 });
 
 
-//@route  PUT api/post/unlike/:id
+//@route  PUT api/posts/unlike/:id
 //@desc   Like a posts
 //@access Private
 
@@ -158,7 +158,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 
 
 
-//@route  POST api/post/comment/:id
+//@route  POST api/posts/comment/:id
 //@desc   Comment on a post
 //@access Private
 router.post('/comment/:id',
@@ -197,7 +197,7 @@ router.post('/comment/:id',
     }
 });
 
-//@route  DELETE api/post/comment/:id/:comment_id
+//@route  DELETE api/posts/comment/:id/:comment_id
 //@desc   Delete a comment on a post
 //@access Private
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
